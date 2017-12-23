@@ -43,7 +43,7 @@
 <body>
 	<h1>Merry Christmas</h1>
 	<canvas id="avatar_canvas" width="300" height="300"></canvas>
-	<script src="https://cdn.bootcss.com/fabric.js/1.7.17/fabric.min.js"></script>
+	<script src="https://cdn.bootcss.com/fabric.js/1.7.19/fabric.min.js"></script>
 	<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
 	<button class='upload-avatar'>上传头像</button>
 	<input type="file" name="avatar" id="avatar_file" class='hide'>
@@ -60,15 +60,17 @@
 		<li data-src="./imgs/9.png"><img src="./imgs/9.png" alt=""></li>
 	</ul>
 	<button class='download-img'>下载图片</button>
+	<a href='' download class='hide download-origin'></a>
 	<script>
 		var $uploadBtn = $('.upload-avatar')
 		var $uploadFile = $('#avatar_file')
 		var $hat = $('.hat-list li')
-		var $download = $('.download-img')
+		var $downloadBtn = $('.download-img')
+		var $downloadOrigin = $('.download-origin')
 		var selectedStyle = {
 			transparentCorners: false,
 			borderColor: '#dddddd',
-			cornerColor: '#10ae58',
+			cornerColor: '#fc0d23',
 			cornerStyle: 'circle',
 			cornerSize: 10,
 			hasRotatingPoint: true,
@@ -108,23 +110,24 @@
 				img.set({
 					strokeWidth: 10,
 					perPixelTargetFind: true
-				});
-				img.hasRotatingPoint = false;
-				var _scale1 = 100 / img.width;
-				var _scale2 = 100 / img.height;
-				var _scale = _scale1 < _scale2 ? _scale1 : _scale2;
+				})
+				var _scale1 = 100 / img.width
+				var _scale2 = 100 / img.height
+				var _scale = _scale1 < _scale2 ? _scale1 : _scale2
 				img.set({
 					scaleX: _scale,
 					scaleY: _scale
-				});
+				})
 				canvas.insertAt(img, 0, true)
 				canvas.setActiveObject(img)
 			})
 		})
-		$download.click(function() {
-			canvas.toDataURL({
+		$downloadBtn.click(function() {
+			var src = canvas.toDataURL({
 				format: 'png'
 			})
+			$downloadOrigin.attr('href', src)
+			$downloadOrigin.click()
 		})
 	</script>
 </body>
