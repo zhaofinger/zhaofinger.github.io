@@ -43,8 +43,8 @@
 <body>
 	<h1>Merry Christmas</h1>
 	<canvas id="avatar_canvas" width="300" height="300"></canvas>
-	<script src="//cdn.bootcss.com/fabric.js/1.7.17/fabric.min.js"></script>
-	<script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+	<script src="https://cdn.bootcss.com/fabric.js/1.7.17/fabric.min.js"></script>
+	<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
 	<button class='upload-avatar'>上传头像</button>
 	<input type="file" name="avatar" id="avatar_file" class='hide'>
 	<h3>选择你的帽子：</h3>
@@ -66,10 +66,12 @@
 		var $hat = $('.hat-list li')
 		var $download = $('.download-img')
 		var selectedStyle = {
+			transparentCorners: false,
 			borderColor: '#dddddd',
 			cornerColor: '#10ae58',
 			cornerStyle: 'circle',
-			cornerSize: 12,
+			cornerSize: 10,
+			hasRotatingPoint: true,
 			borderDashArray: [1, 2, 1],
 			padding: 0,
 			strokeWidth : 0
