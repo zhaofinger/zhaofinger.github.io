@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>圣诞帽在线生成</title>
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background: #f2f2f2;
+		}
+		* {
+			box-sizing: border-box;
+		}
+		#avatar_canvas {
+			box-shadow: 0 2px 8px rgba(0,0,0,0.33);
+			background: #ffffff;
+		}
+		.hide {
+			display: none;
+		}
+		.upload-avatar {
+			margin-top: 20px;
+		}
+		.hat-list {
+			list-style: none;
+			display: flex;
+			width: 100%;
+			overflow-x: auto;
+		}
+		.hat-list li {
+			margin-right: 20px;
+		}
+		.hat-list li img {
+			max-width: 100px;
+			max-height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Merry Christmas</h1>
+	<canvas id="avatar_canvas" width="300" height="300"></canvas>
+	<script src="https://cdn.bootcss.com/fabric.js/1.7.20/fabric.require.min.js"></script>
+	<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+	<button class='upload-avatar'>上传头像</button>
+	<input type="file" name="avatar" id="avatar_file" class='hide'>
+	<h3>选择你的帽子：</h3>
+	<ul class="hat-list">
+		<li data-src="./imgs/1.png"><img src="./imgs/1.png" alt=""></li>
+		<li data-src="./imgs/2.png"><img src="./imgs/2.png" alt=""></li>
+		<li data-src="./imgs/3.png"><img src="./imgs/3.png" alt=""></li>
+		<li data-src="./imgs/4.png"><img src="./imgs/4.png" alt=""></li>
+		<li data-src="./imgs/5.png"><img src="./imgs/5.png" alt=""></li>
+		<li data-src="./imgs/6.png"><img src="./imgs/6.png" alt=""></li>
+		<li data-src="./imgs/7.png"><img src="./imgs/7.png" alt=""></li>
+		<li data-src="./imgs/8.png"><img src="./imgs/8.png" alt=""></li>
+		<li data-src="./imgs/9.png"><img src="./imgs/9.png" alt=""></li>
+	</ul>
+	<button class='download-img'>下载图片</button>
+	<script>
+		var $uploadBtn = $('.upload-avatar')
+		var $uploadFile = $('#avatar_file')
+		var $hat = $('.hat-list li')
+		var $download = $('.download-img')
+		var canvas = new fabric.Canvas('avatar_canvas')
+		$uploadBtn.click(function() {
+			$uploadFile.click()
+		})
+		$uploadFile.change(function(e) {
+			var reader = new FileReader()
+			reader.readAsDataURL(e.target.files[0])
+			reader.onload = function(e) {
+				base64 = e.target.result
+				canvas.setBackgroundImage(base64, canvas.renderAll.bind(canvas), {
+					top: 0,
+					left: 0,
+					originX: 'left',
+					originY: 'top',
+					width: 300,
+					height: 300
+				})
+			}
+		})
+		$hat.click(function(e) {
+			var src = $(this).data('src')
+			fabric.Image.fromURL(src, function(img) {
+				img.set({
+					top: 10,
+					left: 10
+				}, {
+					crossOrigin: null
+				})
+				img.set({
+					strokeWidth: 10,
+					perPixelTargetFind: true
+				});
+				img.hasRotatingPoint = false;
+				var _scale1 = 100 / img.width;
+				var _scale2 = 100 / img.height;
+				var _scale = _scale1 < _scale2 ? _scale1 : _scale2;
+				img.set({
+					scaleX: _scale,
+					scaleY: _scale
+				});
+				canvas.add(img)
+				canvas.setActiveObject(img)
+			})
+		})
+		$download.click(function() {
+			canvas.toDataURL({
+				format: 'png'
+			})
+		})
+	</script>
+</body>
+</html>
