@@ -43,7 +43,7 @@
 <body>
 	<h1>Merry Christmas</h1>
 	<canvas id="avatar_canvas" width="300" height="300"></canvas>
-	<script src="https://cdn.bootcss.com/fabric.js/1.7.20/fabric.require.min.js"></script>
+	<script src="http://cdn.bootcss.com/fabric.js/1.7.17/fabric.min.js"></script>
 	<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
 	<button class='upload-avatar'>上传头像</button>
 	<input type="file" name="avatar" id="avatar_file" class='hide'>
@@ -65,7 +65,18 @@
 		var $uploadFile = $('#avatar_file')
 		var $hat = $('.hat-list li')
 		var $download = $('.download-img')
-		var canvas = new fabric.Canvas('avatar_canvas')
+		var selectedStyle = {
+			transparentCorners: false,
+			borderColor: '#fff',
+			cornerColor: '#10ae58',
+			cornerStyle: 'circle',
+			cornerSize: 12,
+			borderDashArray: [1, 2, 1],
+			padding: 0,
+			strokeWidth : 0
+		}
+		fabric.Object.prototype.set(selectedStyle)
+		var canvas = new fabric.Canvas('avatar_canvas', { preserveObjectStacking: true })
 		$uploadBtn.click(function() {
 			$uploadFile.click()
 		})
