@@ -47,7 +47,7 @@
       var flvVideo = document.getElementById('flv_player');
       var flvPlayer = flvjs.createPlayer({
         type: 'flv',
-        url: '//cyberplayerplay.kaywang.cn/cyberplayer/demo201711-L1.flv'
+        url: 'http://cyberplayerplay.kaywang.cn/cyberplayer/demo201711-L1.flv'
       });
       flvPlayer.attachMediaElement(flvVideo);
       flvPlayer.load();
@@ -61,7 +61,7 @@
     const hlsVideo = document.getElementById('hls_player');
     if (Hls.isSupported()) {
       const hls = new Hls();
-      hls.loadSource('//ivi.bupt.edu.cn/hls/cctv1hd.m3u8');
+      hls.loadSource('http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8');
       hls.attachMedia(hlsVideo);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         hlsVideo.play();
