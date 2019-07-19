@@ -1,12 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>live-demo</title>
+  <link href="//cdn.bootcss.com/video.js/7.6.0/alt/video-js-cdn.min.css" rel="stylesheet">
 </head>
+
 <body>
   <h1>直播demo</h1>
+  <!-- rtmp -->
+  <section id="rtmp">
+    <h2>RTMP</h2>
+    <p>使用 video.js 和 videojs-flash 播放rtmp直播流，手机不支持</p>
+    <video id="rtmp_player" width="600" height="400" controls class="video-js vjs-default-skin">
+      <source src="rtmp://58.200.131.2:1935/livetv/hunantv" />
+    </video>
+  </section>
+  <!-- http flv -->
+  <section id="flv">
+    <h2>HTTP-FLV</h2>
+    <p>使用</p>
+    <video id="flv_player" width="600" height="400" controls></video>
+  </section>
+  <!-- hls -->
+  <section id="hls">
+    <h2>HLS</h2>
+    <p>使用 hls.js 播放hls地址，手机上直接用video播放即可</p>
+    <video id="hls_player" width="600" height="400" controls></video>
+  </section>
+
+  <!-- video js and flash plugin play rtmp live -->
+  <script src="//cdn.bootcss.com/video.js/7.6.0/alt/video.core.min.js"></script>
+  <script src="//cdn.bootcss.com/videojs-flash/2.2.0/videojs-flash.min.js"></script>
+  <script>
+    const player = videojs('rtmp_player', () => {
+      console.log('rtmp player init complete');
+    });
+  </script>
+  <!-- flv.js play flv live -->
+  <script src="//cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+  <script>
+    if (flvjs.isSupported()) {
+      var flvVideo = document.getElementById('flv_player');
+      var flvPlayer = flvjs.createPlayer({
+        type: 'flv',
+        url: '//cyberplayerplay.kaywang.cn/cyberplayer/demo201711-L1.flv'
+      });
+      flvPlayer.attachMediaElement(flvVideo);
+      flvPlayer.load();
+      flvPlayer.play();
+    }
+  </script>
+
+  <!-- hls -->
+  <script src="//cdn.bootcss.com/hls.js/8.0.0-beta.3/hls.min.js"></script>
+  <script>
+    const hlsVideo = document.getElementById('hls_player');
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource('//ivi.bupt.edu.cn/hls/cctv1hd.m3u8');
+      hls.attachMedia(hlsVideo);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        hlsVideo.play();
+      });
+    }
+  </script>
 </body>
+
 </html>
