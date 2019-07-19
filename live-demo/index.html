@@ -28,7 +28,7 @@
   <!-- hls -->
   <section id="hls">
     <h2>HLS</h2>
-    <p>使用 hls.js 播放hls地址，手机上直接用video播放即可</p>
+    <p>使用 hls.js 播放hls地址，手机上直接用video播放即可（这里不是直播，因为我没有找到直播的hls的https的地址，所以用录播的替代一下）</p>
     <video id="hls_player" width="600" height="400" controls></video>
   </section>
 
@@ -61,7 +61,7 @@
     const hlsVideo = document.getElementById('hls_player');
     if (Hls.isSupported()) {
       const hls = new Hls();
-      hls.loadSource('http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8');
+      hls.loadSource('https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8');
       hls.attachMedia(hlsVideo);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         hlsVideo.play();
